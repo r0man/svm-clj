@@ -2,7 +2,7 @@
   (:use [clojure.string :only (split)]))
 
 (defn parse-libsvm-line
-  "Parse a text line in LibSVM format."
+  "Parse a LibSVM formatted text line."
   [line]
   (let [[label & data] (split line #"\s+")]
     [(Integer/parseInt label)
@@ -12,3 +12,4 @@
           (Integer/parseInt index)
           (Double/parseDouble value)))
       {} (map #(split % #":") data))]))
+
