@@ -7,8 +7,8 @@
   (let [[label & data] (split line #"\s+")]
     [(Integer/parseInt label)
      (reduce
-      (fn [set [index value]]
-        (assoc set
+      (fn [data [index value]]
+        (assoc data
           (Integer/parseInt index)
           (Double/parseDouble value)))
       {} (map #(split % #":") data))]))
