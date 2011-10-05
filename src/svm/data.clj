@@ -1,5 +1,10 @@
 (ns svm.data
-  (:use [clojure.string :only (split)]))
+  (:use [clojure.string :only (join split)]))
+
+(defn format-libsvm-line
+  "Format data as a LibSVM text line."
+  [[label data]]
+  (str label " " (->> (sort data) (map (partial join ":")) (join " "))))
 
 (defn parse-libsvm-line
   "Parse a LibSVM formatted text line."
@@ -11,5 +16,5 @@
         (assoc data
           (Integer/parseInt index)
           (Double/parseDouble value)))
-      {} (map #(split % #":") data))]))
+      (sorted-map) (map #(split % #":") data))]))
 
