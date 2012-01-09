@@ -1,5 +1,6 @@
 (ns svm.data
-  (:use [clojure.string :only (join split)]))
+  (:use [clojure.string :only (join split)]
+        [clojure.java.io :only (reader)]))
 
 (defn format-libsvm-line
   "Format data as a LibSVM text line."
@@ -18,3 +19,6 @@
           (Double/parseDouble value)))
       (sorted-map) (map #(split % #":") data))]))
 
+(defn read-dataset
+  "Read the dataset from url."
+  [url] (map parse-libsvm-line (line-seq (reader url))))

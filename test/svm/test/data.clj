@@ -19,3 +19,10 @@
     (is (= 0.166667 (get data 1)))
     (is (nil? (get data 11)))
     (is (= 0.5 (get data 13)))))
+
+(deftest test-read-dataset
+  (let [dataset (read-dataset "test-resources/heart_scale")]
+    (is (= 270 (count dataset)))
+    (is (every? #(= 2 (count %1)) dataset))
+    (is (every? #(number? (first %1)) dataset))
+    (is (every? #(map? (second %1)) dataset))))
