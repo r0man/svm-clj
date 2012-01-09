@@ -23,3 +23,6 @@
     (set! (. problem x) (into-array (map into-array (map make-nodes dataset))))
     problem))
 
+(defn read-problem
+  "Read the dataset from url and make a SVM problem."
+  [url] (make-problem (read-dataset url)))

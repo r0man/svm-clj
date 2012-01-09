@@ -9,14 +9,23 @@
 
 (deftest test-make-problem
   (let [problem (make-problem example-dataset)]
-    (is (isa? (class problem) svm_problem))))
+    (is (instance? svm_problem problem))))
 
 (deftest test-make-node
   (let [node (make-node 1 0.166667)]
-    (is (isa? (class node) svm_node))
+    (is (instance? svm_node node))
     (is (= 1 (. node index)))
     (is (= 0.166667 (. node value)))))
 
 (deftest test-make-nodes
   (let [nodes (make-nodes (first example-dataset))]
     (is (= 12 (count nodes)))))
+
+(deftest test-read-problem
+  (let [problem (read-problem "test-resources/heart_scale")]
+    (is (instance? svm_problem problem))
+    (is (= 270 (.l problem)))
+    (is (= 270 (count (.x problem))))
+    (is (every? #(instance? svm_node %1) (flatten (.x problem))))
+    (is (= 270 (count (.y problem))))
+    (is (every? number? (.y problem)))))
