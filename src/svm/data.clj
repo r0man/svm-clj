@@ -1,6 +1,6 @@
 (ns svm.data
   (:use [clojure.string :only (join split)]
-        [clojure.java.io :only (reader)]))
+        [clojure.java.io :only (file reader writer)]))
 
 (defn format-libsvm-line
   "Format data as a LibSVM text line."
@@ -22,3 +22,11 @@
 (defn read-dataset
   "Read the dataset from url."
   [url] (map parse-libsvm-line (line-seq (reader url))))
+
+(defn write-dataset
+  "Write the dataset to filename."
+  [dataset filename]
+  (let [file (file filename)]
+    (.mkdirs (.getParentFile file))
+    (spit file (join "\n" (map format-libsvm-line dataset)))
+    (str file)))

@@ -26,3 +26,9 @@
     (is (every? #(= 2 (count %1)) dataset))
     (is (every? #(number? (first %1)) dataset))
     (is (every? #(map? (second %1)) dataset))))
+
+(deftest test-write-dataset
+  (let [dataset (read-dataset "test-resources/heart_scale")
+        filename (write-dataset dataset "tmp/heart_scale")]
+    (is (= "tmp/heart_scale" filename))
+    (is (= dataset (read-dataset filename)))))
