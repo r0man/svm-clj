@@ -21,6 +21,9 @@
    :weight (double-array 0)
    :weight-label (int-array 0)})
 
+(defn- max-features [dataset]
+  (apply max (mapcat (comp keys last) dataset)))
+
 (defn make-node
   "Make a LibSVM node."
   [index value]
@@ -33,10 +36,11 @@
   "Make a seq of LibSVM nodes."
   [[label data]] (map #(apply make-node %) data))
 
-(defn make-params [& {:as options}]
+(defn make-params [dataset & {:as options}]
   (let [params (svm_parameter.)]
     (doseq [[key val] (merge default-params options)]
       (clojure.lang.Reflector/setInstanceField params (replace (name key) "-" "_") val))
+    (set! (.gamma params) (double (/ 1 (max-features dataset))))
     params))
 
 (defn make-problem
@@ -57,7 +61,7 @@
   "Train a model with dataset according to options."
   [dataset & options]
   (let [problem (make-problem dataset)
-        params (apply make-params options)]
+        params (apply make-params dataset options)]
     (svm/svm_check_parameter problem params)
     (svm/svm_train problem params)))
 
