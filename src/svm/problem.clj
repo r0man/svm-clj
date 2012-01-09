@@ -53,9 +53,10 @@
   [url] (make-problem (read-dataset url)))
 
 (defn train-model
-  "Train a problem according to options."
-  [problem & options]
-  (let [params (apply make-params options)]
+  "Train a model with dataset according to options."
+  [dataset & options]
+  (let [problem (make-problem dataset)
+        params (apply make-params options)]
     (svm/svm_check_parameter problem params)
     (svm/svm_train problem params)))
 

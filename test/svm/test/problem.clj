@@ -1,6 +1,7 @@
 (ns svm.test.problem
   (:import [libsvm svm_node svm_model svm_parameter svm_problem])
   (:use clojure.test
+        svm.data
         svm.problem))
 
 (def example-dataset
@@ -67,10 +68,10 @@
     (is (every? number? (.y problem)))))
 
 (deftest test-train-model
-  (let [model (train-model (read-problem "test-resources/heart_scale"))]
+  (let [model (train-model (read-dataset "test-resources/heart_scale"))]
     (is (instance? svm_model model))))
 
-(deftest test-train-model
-  (let [model (train-model (read-problem "test-resources/heart_scale"))
+(deftest test-save-model
+  (let [model (train-model (read-dataset "test-resources/heart_scale"))
         filename (save-model model "tmp/heart_scale.model")]
     (is (= "tmp/heart_scale.model" filename))))
