@@ -69,3 +69,8 @@
 (deftest test-train-model
   (let [model (train-model (read-problem "test-resources/heart_scale"))]
     (is (instance? svm_model model))))
+
+(deftest test-train-model
+  (let [model (train-model (read-problem "test-resources/heart_scale"))
+        filename (save-model model "tmp/heart_scale.model")]
+    (is (= "tmp/heart_scale.model" filename))))

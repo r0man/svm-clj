@@ -77,3 +77,9 @@
   (let [params (apply make-params options)]
     (svm/svm_check_parameter problem params)
     (svm/svm_train problem params)))
+
+(defn save-model
+  "Save the model to filename."
+  [model filename]
+  (svm/svm_save_model filename model)
+  filename)
