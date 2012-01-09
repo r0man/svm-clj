@@ -33,25 +33,6 @@
   "Make a seq of LibSVM nodes."
   [[label data]] (map #(apply make-node %) data))
 
-(defn make-params [options]
-  (let [params (svm_parameter.)]
-    (set! (.svm_type params) (or (:svm-type options) svm_parameter/C_SVC))
-    (set! (.kernel_type params) (or (:kernel-type options) svm_parameter/RBF))
-    (set! (.degree params) (or (:degree options) 3))
-    (set! (.gamma params) (or (:gamma options) 0))
-    (set! (.coef0 params) (or (:coef0 options) 0))
-    (set! (.nu params) (or (:nu options) 0.5))
-    (set! (.cache_size params) (or (:cache-size options) 100))
-    (set! (.C params) (or (:c options) 1))
-    (set! (.eps params) (or (:eps options) 1e-3))
-    (set! (.p params) (or (:p options) 0.1))
-    (set! (.shrinking params) (or (:shrinking options) 1))
-    (set! (.probability params) (or (:probability options) 0))
-    (set! (.nr_weight params) (or (:nr-weight options) 0))
-    (set! (.weight params) (or (:weight options) (double-array 0)))
-    (set! (.weight_label params) (or (:weight-label options) (int-array 0)))
-    params))
-
 (defn make-params [& {:as options}]
   (let [params (svm_parameter.)]
     (doseq [[key val] (merge default-params options)]
