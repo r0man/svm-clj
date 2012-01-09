@@ -1,5 +1,5 @@
 (ns svm.test.problem
-  (:import [libsvm svm_node svm_problem])
+  (:import [libsvm svm_node svm_model svm_parameter svm_problem])
   (:use clojure.test
         svm.problem))
 
@@ -21,6 +21,42 @@
   (let [nodes (make-nodes (first example-dataset))]
     (is (= 12 (count nodes)))))
 
+(deftest test-make-params
+  (let [params (make-params)]
+    (is (instance? svm_parameter params))
+    (is (= svm_parameter/C_SVC (.svm_type params)))
+    (is (= svm_parameter/RBF (.kernel_type params)))
+    (is (= 3 (.degree params)))
+    (is (= 0.0 (.gamma params)))
+    (is (= 0.0 (.coef0 params)))
+    (is (= 0.5 (.nu params)))
+    (is (= 100.0 (.cache_size params)))
+    (is (= 1.0 (.C params)))
+    (is (= 1e-3 (.eps params)))
+    (is (= 0.1 (.p params)))
+    (is (= 1 (.shrinking params)))
+    (is (= 0 (.probability params)))
+    (is (= 0 (.nr_weight params)))
+    (is (= 0 (count (.weight params))))
+    (is (= 0 (count (.weight_label params)))))
+  (let [params (make-params :C 2)]
+    (is (instance? svm_parameter params))
+    (is (= svm_parameter/C_SVC (.svm_type params)))
+    (is (= svm_parameter/RBF (.kernel_type params)))
+    (is (= 3 (.degree params)))
+    (is (= 0.0 (.gamma params)))
+    (is (= 0.0 (.coef0 params)))
+    (is (= 0.5 (.nu params)))
+    (is (= 100.0 (.cache_size params)))
+    (is (= 2.0 (.C params)))
+    (is (= 1e-3 (.eps params)))
+    (is (= 0.1 (.p params)))
+    (is (= 1 (.shrinking params)))
+    (is (= 0 (.probability params)))
+    (is (= 0 (.nr_weight params)))
+    (is (= 0 (count (.weight params))))
+    (is (= 0 (count (.weight_label params))))))
+
 (deftest test-read-problem
   (let [problem (read-problem "test-resources/heart_scale")]
     (is (instance? svm_problem problem))
@@ -29,3 +65,7 @@
     (is (every? #(instance? svm_node %1) (flatten (.x problem))))
     (is (= 270 (count (.y problem))))
     (is (every? number? (.y problem)))))
+
+(deftest test-train-model
+  (let [model (train-model (read-problem "test-resources/heart_scale"))]
+    (is (instance? svm_model model))))
