@@ -18,6 +18,7 @@ Via Clojars: http://clojars.org/svm-clj.
 
 ; Get the feature map you want to predict.
 (def feature (last (first dataset)))
+;=> {1 0.708333, 2 1.0, 3 1.0, ...}
 
 ; Label it.
 (predict model feature)
