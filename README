@@ -6,6 +6,23 @@ A LibSVM wrapper for Clojure.
 
 Via Clojars: http://clojars.org/svm-clj.
 
+## Usage
+
+(use 'svm.core)
+
+; Load the heart scale example dataset.
+(def dataset (read-dataset "test-resources/heart_scale"))
+
+; Train a SVM model.
+(def model (train-model dataset))
+
+; Get the feature map you want to predict.
+(def feature (last (first dataset)))
+
+; Label it.
+(predict model feature)
+;=> 1.0
+
 ## License
 
 Copyright (C) 2011 Roman Scherer
