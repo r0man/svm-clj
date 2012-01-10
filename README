@@ -1,6 +1,6 @@
 # SVM-CLJ
 
-Clojure library for libsvm.
+A LibSVM wrapper for Clojure .
 
 ## Installation
 
