@@ -15,10 +15,10 @@
 (def example-line
   "-1 1:0.166667 2:1 3:1 4:-0.132075 5:-0.69863 6:-1 7:-1 8:0.175573 9:-1 10:-0.870968 12:-1 13:0.5")
 
-(deftest test-format-libsvm-line
-  (let [line (format-libsvm-line example-data)]
+(deftest test-format-line
+  (let [line (format-line example-data)]
     (is (= "-1 1:0.166667 2:1.0 3:1.0 4:-0.132075 5:-0.69863 6:-1.0 7:-1.0 8:0.175573 9:-1.0 10:-0.870968 12:-1.0 13:0.5" line))
-    (is (= example-data (parse-libsvm-line line)))))
+    (is (= example-data (parse-line line)))))
 
 (deftest test-heart-scale
   (is (= 0 (:exit (sh "svm-train" "test-resources/heart_scale" "tmp/heart_scale.model"))))
@@ -77,8 +77,8 @@
       (is (= 0 (count (.weight params))))
       (is (= 0 (count (.weight_label params)))))))
 
-(deftest test-parse-libsvm-line
-  (let [[label data] (parse-libsvm-line example-line)]
+(deftest test-parse-line
+  (let [[label data] (parse-line example-line)]
     (is (= -1 label))
     (is (= 0.166667 (get data 1)))
     (is (nil? (get data 11)))

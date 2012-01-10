@@ -38,7 +38,7 @@
 (defn- max-features [dataset]
   (apply max (mapcat (comp keys last) dataset)))
 
-(defn format-libsvm-line
+(defn format-line
   "Format data as a LibSVM text line."
   [[label data]]
   (str label " " (->> (sort data) (map #(join ":" %)) (join " "))))
@@ -73,7 +73,7 @@
     (set! (. problem x) (into-array (map into-array (map make-nodes dataset))))
     problem))
 
-(defn parse-libsvm-line
+(defn parse-line
   "Parse a LibSVM formatted text `line`."
   [line]
   (let [[label & data] (split line #"\s+")]
@@ -94,7 +94,7 @@
 
 (defn read-dataset
   "Read the dataset in LibSVM format from `url`."
-  [url] (map parse-libsvm-line (line-seq (reader url))))
+  [url] (map parse-line (line-seq (reader url))))
 
 (defn read-model
   "Read the SVM model in LibSVM format from `filename`."
@@ -113,7 +113,7 @@
   [dataset filename]
   (let [file (file filename)]
     (.mkdirs (.getParentFile file))
-    (spit file (join "\n" (map format-libsvm-line dataset)))
+    (spit file (join "\n" (map format-line dataset)))
     (str file)))
 
 (defn write-model
