@@ -99,9 +99,17 @@
     (is (every? #(number? (first %1)) dataset))
     (is (every? #(map? (second %1)) dataset))))
 
-(deftest test-save-model
+(deftest test-read-model
+  (let [filename "tmp/heart_scale.model"]
+    (write-model example-model filename)
+    (let [model (read-model filename)]
+      (is (instance? svm_model model))
+      (is (= (.l example-model) (.l model)))
+      (is (= (.nr_class example-model) (.nr_class model))))))
+
+(deftest test-write-model
   (is (= "tmp/heart_scale.model"
-         (save-model example-model "tmp/heart_scale.model"))))
+         (write-model example-model "tmp/heart_scale.model"))))
 
 (deftest test-train-model
   (let [model (train-model example-dataset)]

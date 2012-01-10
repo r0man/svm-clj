@@ -87,13 +87,9 @@
   "Read the dataset from url."
   [url] (map parse-libsvm-line (line-seq (reader url))))
 
-(defn write-dataset
-  "Write the dataset to filename."
-  [dataset filename]
-  (let [file (file filename)]
-    (.mkdirs (.getParentFile file))
-    (spit file (join "\n" (map format-libsvm-line dataset)))
-    (str file)))
+(defn read-model
+  "Read the model from `filename`."
+  [filename] (svm/svm_load_model filename))
 
 (defn train-model
   "Train a model with dataset according to options."
@@ -103,8 +99,16 @@
     (svm/svm_check_parameter problem params)
     (svm/svm_train problem params)))
 
-(defn save-model
-  "Save the model to filename."
+(defn write-dataset
+  "Write the dataset to `filename`."
+  [dataset filename]
+  (let [file (file filename)]
+    (.mkdirs (.getParentFile file))
+    (spit file (join "\n" (map format-libsvm-line dataset)))
+    (str file)))
+
+(defn write-model
+  "Save the model to `filename`."
   [model filename]
   (svm/svm_save_model filename model)
   filename)
