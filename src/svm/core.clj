@@ -93,11 +93,11 @@
        (svm/svm_predict model)))
 
 (defn read-dataset
-  "Read the dataset from `url`."
+  "Read the dataset in LibSVM format from `url`."
   [url] (map parse-libsvm-line (line-seq (reader url))))
 
 (defn read-model
-  "Read the SVM model from `filename`."
+  "Read the SVM model in LibSVM format from `filename`."
   [filename] (svm/svm_load_model filename))
 
 (defn train-model
@@ -117,7 +117,7 @@
     (str file)))
 
 (defn write-model
-  "Save the `model` to `filename`."
+  "Write the `model` in LibSVM format to `filename`."
   [model filename]
   (svm/svm_save_model filename model)
   filename)
