@@ -1,6 +1,8 @@
 (ns svm.test.problem
   (:import [libsvm svm_node svm_model svm_parameter svm_problem])
-  (:use clojure.test
+  (:use [clojure.java.io :only (reader)]
+        clojure.java.shell
+        clojure.test
         svm.data
         svm.problem))
 
@@ -83,3 +85,9 @@
     1 -1.0
     2 -1.0
     3 1.0))
+
+(deftest test-heart-scale
+  (is (= 0 (:exit (sh "svm-train" "test-resources/heart_scale" "tmp/heart_scale.model"))))
+  (is (= 0 (:exit (sh "svm-predict" "test-resources/heart_scale" "tmp/heart_scale.model" "tmp/output"))))
+  (is (= (map #(Double/parseDouble %1) (line-seq (reader "tmp/output")))
+         (map #(predict example-model %1) (map last example-dataset)))))
