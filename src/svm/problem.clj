@@ -70,3 +70,10 @@
   [model filename]
   (svm/svm_save_model filename model)
   filename)
+
+(defn predict
+  "Predict the label of the `feature` with `model`."
+  [model feature]
+  (->> (make-nodes [nil feature])
+       (into-array)
+       (svm/svm_predict model)))

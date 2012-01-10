@@ -4,9 +4,9 @@
         svm.data
         svm.problem))
 
-(def example-dataset
-  [[-1 {1 0.166667, 2 1.0, 3 1.0, 4 -0.132075, 5 -0.69863, 6 -1.0, 7 -1.0, 8 0.175573, 9 -1.0, 10 -0.870968, 12 -1.0, 13 0.5}]
-   [-1 {1 0.166667, 2 1.0, 3 1.0, 4 -0.132075, 5 -0.69863, 6 -1.0, 7 -1.0, 8 0.175573, 9 -1.0, 10 -0.870968, 12 -1.0, 13 0.5}]])
+(def example-dataset (read-dataset "test-resources/heart_scale"))
+
+(def example-model (train-model example-dataset))
 
 (deftest test-make-problem
   (let [problem (make-problem example-dataset)]
@@ -69,10 +69,17 @@
     (is (every? number? (.y problem)))))
 
 (deftest test-train-model
-  (let [model (train-model (read-dataset "test-resources/heart_scale"))]
+  (let [model (train-model example-dataset)]
     (is (instance? svm_model model))))
 
 (deftest test-save-model
-  (let [model (train-model (read-dataset "test-resources/heart_scale"))
-        filename (save-model model "tmp/heart_scale.model")]
-    (is (= "tmp/heart_scale.model" filename))))
+  (is (= "tmp/heart_scale.model"
+         (save-model example-model "tmp/heart_scale.model"))))
+
+(deftest test-predict
+  (are [index label]
+    (is (= label (predict example-model (last (nth example-dataset index)))))
+    0 1.0
+    1 -1.0
+    2 -1.0
+    3 1.0))
