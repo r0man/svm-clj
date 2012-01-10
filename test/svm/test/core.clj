@@ -5,7 +5,7 @@
         clojure.test
         svm.core))
 
-(def example-dataset (read-dataset "test-resources/heart_scale"))
+(def example-dataset (read-dataset "test-resources/heartscale"))
 
 (def example-model (train-model example-dataset))
 
@@ -21,8 +21,8 @@
     (is (= example-data (parse-line line)))))
 
 (deftest test-heart-scale
-  (is (= 0 (:exit (sh "svm-train" "test-resources/heart_scale" "tmp/heart_scale.model"))))
-  (is (= 0 (:exit (sh "svm-predict" "test-resources/heart_scale" "tmp/heart_scale.model" "tmp/output"))))
+  (is (= 0 (:exit (sh "svm-train" "test-resources/heartscale" "tmp/heartscale.model"))))
+  (is (= 0 (:exit (sh "svm-predict" "test-resources/heartscale" "tmp/heartscale.model" "tmp/output"))))
   (is (= (map #(Double/parseDouble %1) (line-seq (reader "tmp/output")))
          (map #(predict example-model %1) (map last example-dataset)))))
 
@@ -41,7 +41,7 @@
     (is (= 12 (count nodes)))))
 
 (deftest test-make-params
-  (let [dataset (read-dataset "test-resources/heart_scale")]
+  (let [dataset (read-dataset "test-resources/heartscale")]
     (let [params (make-params dataset)]
       (is (instance? svm_parameter params))
       (is (= svm_parameter/C_SVC (.svm_type params)))
@@ -93,14 +93,14 @@
     3 1.0))
 
 (deftest test-read-dataset
-  (let [dataset (read-dataset "test-resources/heart_scale")]
+  (let [dataset (read-dataset "test-resources/heartscale")]
     (is (= 270 (count dataset)))
     (is (every? #(= 2 (count %1)) dataset))
     (is (every? #(number? (first %1)) dataset))
     (is (every? #(map? (second %1)) dataset))))
 
 (deftest test-read-model
-  (let [filename "tmp/heart_scale.model"]
+  (let [filename "tmp/heartscale.model"]
     (write-model example-model filename)
     (let [model (read-model filename)]
       (is (instance? svm_model model))
@@ -108,15 +108,15 @@
       (is (= (.nr_class example-model) (.nr_class model))))))
 
 (deftest test-write-model
-  (is (= "tmp/heart_scale.model"
-         (write-model example-model "tmp/heart_scale.model"))))
+  (is (= "tmp/heartscale.model"
+         (write-model example-model "tmp/heartscale.model"))))
 
 (deftest test-train-model
   (let [model (train-model example-dataset)]
     (is (instance? svm_model model))))
 
 (deftest test-write-dataset
-  (let [dataset (read-dataset "test-resources/heart_scale")
-        filename (write-dataset dataset "tmp/heart_scale")]
-    (is (= "tmp/heart_scale" filename))
+  (let [dataset (read-dataset "test-resources/heartscale")
+        filename (write-dataset dataset "tmp/heartscale")]
+    (is (= "tmp/heartscale" filename))
     (is (= dataset (read-dataset filename)))))
