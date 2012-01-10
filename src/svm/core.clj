@@ -83,6 +83,13 @@
           (Double/parseDouble value)))
       (sorted-map) (map #(split % #":") data))]))
 
+(defn predict
+  "Predict the label of the `feature` with `model`."
+  [model feature]
+  (->> (make-nodes [nil feature])
+       (into-array)
+       (svm/svm_predict model)))
+
 (defn read-dataset
   "Read the dataset from url."
   [url] (map parse-libsvm-line (line-seq (reader url))))
@@ -112,10 +119,3 @@
   [model filename]
   (svm/svm_save_model filename model)
   filename)
-
-(defn predict
-  "Predict the label of the `feature` with `model`."
-  [model feature]
-  (->> (make-nodes [nil feature])
-       (into-array)
-       (svm/svm_predict model)))
