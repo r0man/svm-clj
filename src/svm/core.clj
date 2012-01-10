@@ -55,7 +55,9 @@
   "Make a seq of LibSVM nodes."
   [[label data]] (map #(apply make-node %) data))
 
-(defn make-params [dataset & {:as options}]
+(defn make-params
+  "Make trainer params from `dataset` and `options`."
+  [dataset & {:as options}]
   (let [params (svm_parameter.)]
     (doseq [[key val] (merge default-params options)]
       (clojure.lang.Reflector/setInstanceField params (replace (name key) "-" "_") val))
@@ -63,7 +65,7 @@
     params))
 
 (defn make-problem
-  "Make a LibSVM problem."
+  "Make a LibSVM problem from `dataset`."
   [dataset]
   (let [problem (svm_problem.)]
     (set! (. problem l) (count dataset))
@@ -72,7 +74,7 @@
     problem))
 
 (defn parse-libsvm-line
-  "Parse a LibSVM formatted text line."
+  "Parse a LibSVM formatted text `line`."
   [line]
   (let [[label & data] (split line #"\s+")]
     [(Integer/parseInt label)
@@ -91,15 +93,15 @@
        (svm/svm_predict model)))
 
 (defn read-dataset
-  "Read the dataset from url."
+  "Read the dataset from `url`."
   [url] (map parse-libsvm-line (line-seq (reader url))))
 
 (defn read-model
-  "Read the model from `filename`."
+  "Read the SVM model from `filename`."
   [filename] (svm/svm_load_model filename))
 
 (defn train-model
-  "Train a model with dataset according to options."
+  "Train a SVM model with `dataset` according to `options`."
   [dataset & options]
   (let [problem (make-problem dataset)
         params (apply make-params dataset options)]
@@ -107,7 +109,7 @@
     (svm/svm_train problem params)))
 
 (defn write-dataset
-  "Write the dataset to `filename`."
+  "Write the `dataset` in LibSVM format to `filename`."
   [dataset filename]
   (let [file (file filename)]
     (.mkdirs (.getParentFile file))
@@ -115,7 +117,7 @@
     (str file)))
 
 (defn write-model
-  "Save the model to `filename`."
+  "Save the `model` to `filename`."
   [model filename]
   (svm/svm_save_model filename model)
   filename)
