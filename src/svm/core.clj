@@ -61,7 +61,7 @@
   (let [params (svm_parameter.)]
     (doseq [[key val] (merge default-params options)]
       (clojure.lang.Reflector/setInstanceField params (replace (name key) "-" "_") val))
-    (set! (.gamma params) (double (/ 1 (max-features dataset))))
+    (set! (.gamma params) (/ 1.0 (max-features dataset)))
     params))
 
 (defn make-problem
