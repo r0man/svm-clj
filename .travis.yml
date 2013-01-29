@@ -8,6 +8,8 @@ before_install:
   - tar xvfz libsvm-$LIBSVM_VERSION.tar.gz
   - cd libsvm-$LIBSVM_VERSION
   - make lib all
+  - /usr/bin/svm-train
+  - svm-train
   - sudo install -D -m755 svm-train /usr/bin/svm-train
   - sudo install -D -m755 svm-predict /usr/bin/svm-predict
   - sudo install -D -m755 svm-scale /usr/bin/svm-scale
