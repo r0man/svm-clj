@@ -29,4 +29,5 @@ Via Clojars: http://clojars.org/svm-clj.
 ## License
 
 Copyright (C) 2011 Roman Scherer
+
 Distributed under the Eclipse Public License, the same as Clojure.
