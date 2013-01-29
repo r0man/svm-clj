@@ -77,7 +77,7 @@
   "Parse a LibSVM formatted text `line`."
   [line]
   (let [[label & data] (split line #"\s+")]
-    [(Integer/parseInt label)
+    [(read-string label)
      (reduce
       (fn [data [index value]]
         (assoc data
