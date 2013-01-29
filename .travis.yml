@@ -4,3 +4,4 @@ before_install:
   - sudo apt-get install wget -qq
   - sudo apt-get install unzip -qq
   - sudo apt-cache search libsvm
+  - sudo apt-get install libsvm
