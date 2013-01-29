@@ -6,5 +6,5 @@
             :web-home "https://r0man.github.com/svm-clj/"}
   :description "Clojure Library for LibSVM."
   :url "https://github.com/r0man/svm-clj"
-  :dependencies [[org.clojure/clojure "1.3.0"]]
-  :extra-classpath-dirs ["/usr/share/java/libsvm.jar"])
+  :dependencies [[org.clojure/clojure "1.3.0"]
+                 [tw.edu.ntu.csie/libsvm "3.1"]])
