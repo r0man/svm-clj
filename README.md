@@ -8,6 +8,7 @@ Via Clojars: http://clojars.org/svm-clj.
 
 ## Usage
 
+```clojure
 (use 'svm.core)
 
 ; Load the heart scale example dataset.
@@ -23,9 +24,9 @@ Via Clojars: http://clojars.org/svm-clj.
 ; Label it.
 (predict model feature)
 ;=> 1.0
+```
 
 ## License
 
 Copyright (C) 2011 Roman Scherer
-
 Distributed under the Eclipse Public License, the same as Clojure.
