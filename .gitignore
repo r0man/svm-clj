@@ -1,3 +1,6 @@
 /lib
 /tmp
 /.lein-deps-sum
+*.swp
+.lein-repl-history
+target/
