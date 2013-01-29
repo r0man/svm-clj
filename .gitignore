@@ -5,3 +5,4 @@
 .lein-repl-history
 .lein-failures
 target/
+/pom.xml
