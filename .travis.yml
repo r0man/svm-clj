@@ -2,6 +2,15 @@ language: clojure
 lein: lein2
 before_install:
   - sudo apt-get install wget -qq
-  - sudo apt-get install unzip -qq
-  - sudo apt-cache search libsvm
-  - sudo apt-get install libsvm
+  - sudo apt-get install tar -qq
+  - wget -c http://www.csie.ntu.edu.tw/~cjlin/libsvm/libsvm-$3.16.tar.gz
+  - tar xvfz libsvm-$3.16.tar.gz
+  - cd libsvm-$3.16
+  - make lib all
+  - sudo install -D -m755 svm-train /usr/bin/svm-train
+  - sudo install -D -m755 svm-predict /usr/bin/svm-predict
+  - sudo install -D -m755 svm-scale /usr/bin/svm-scale
+  - sudo install -D -m644 java/libsvm.jar /usr/share/java/libsvm.jar
+  - sudo install -D -m644 libsvm.so.2 /usr/lib/libsvm.so.2
+  - sudo ldconfig
+  - cd ..
