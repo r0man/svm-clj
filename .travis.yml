@@ -1,0 +1,6 @@
+language: clojure
+lein: lein2
+before_install:
+  - sudo apt-get install wget -qq
+  - sudo apt-get install unzip -qq
+  - sudo aptitude search libsvm
