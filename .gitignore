@@ -6,3 +6,4 @@
 .lein-failures
 target/
 /pom.xml
+/pom.xml.asc
