@@ -11,7 +11,7 @@ Via Clojars: http://clojars.org/svm-clj.
 (use 'svm.core)
 
 ; Load the heart scale example dataset.
-(def dataset (read-dataset "test-resources/heart_scale"))
+(def dataset (read-dataset "test-resources/heartscale"))
 
 ; Train a SVM model.
 (def model (train-model dataset))
