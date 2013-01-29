@@ -3,4 +3,5 @@
 /.lein-deps-sum
 *.swp
 .lein-repl-history
+.lein-failures
 target/
