@@ -3,9 +3,10 @@ lein: lein2
 before_install:
   - sudo apt-get install wget -qq
   - sudo apt-get install tar -qq
-  - wget -c http://www.csie.ntu.edu.tw/~cjlin/libsvm/libsvm-$3.16.tar.gz
-  - tar xvfz libsvm-$3.16.tar.gz
-  - cd libsvm-$3.16
+  - export LIBSVM_VERSION=3.16
+  - wget -c http://www.csie.ntu.edu.tw/~cjlin/libsvm/libsvm-$LIBSVM_VERSION.tar.gz
+  - tar xvfz libsvm-$LIBSVM_VERSION.tar.gz
+  - cd libsvm-$LIBSVM_VERSION
   - make lib all
   - sudo install -D -m755 svm-train /usr/bin/svm-train
   - sudo install -D -m755 svm-predict /usr/bin/svm-predict
