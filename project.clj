@@ -1,4 +1,4 @@
-(defproject svm-clj "0.0.2-SNAPSHOT"
+(defproject svm-clj "0.1.0"
   :author "Roman Scherer"
   :autodoc {:copyright "Copyright (c) 2011 Roman Scherer"
             :name "Clojure LibSVM"
