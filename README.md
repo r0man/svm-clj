@@ -1,4 +1,4 @@
-# SVM-CLJ
+# SVM-CLJ [![Build Status](https://travis-ci.org/r0man/svm-clj.png)](https://travis-ci.org/r0man/svm-clj)
 
 A LibSVM wrapper for Clojure.
 
