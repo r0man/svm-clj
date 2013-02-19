@@ -21,9 +21,9 @@
     (is (= example-data (parse-line line)))))
 
 (deftest test-heart-scale
-  (is (= 0 (:exit (sh "svm-train" "test-resources/heartscale" "tmp/heartscale.model"))))
-  (is (= 0 (:exit (sh "svm-predict" "test-resources/heartscale" "tmp/heartscale.model" "tmp/output"))))
-  (is (= (map #(Double/parseDouble %1) (line-seq (reader "tmp/output")))
+  (is (= 0 (:exit (sh "svm-train" "test-resources/heartscale" "/tmp/heartscale.model"))))
+  (is (= 0 (:exit (sh "svm-predict" "test-resources/heartscale" "/tmp/heartscale.model" "/tmp/output"))))
+  (is (= (map #(Double/parseDouble %1) (line-seq (reader "/tmp/output")))
          (map #(predict example-model %1) (map last example-dataset)))))
 
 (deftest test-make-problem
@@ -100,7 +100,7 @@
     (is (every? #(map? (second %1)) dataset))))
 
 (deftest test-read-model
-  (let [filename "tmp/heartscale.model"]
+  (let [filename "/tmp/heartscale.model"]
     (write-model example-model filename)
     (let [model (read-model filename)]
       (is (instance? svm_model model))
@@ -108,8 +108,8 @@
       (is (= (.nr_class example-model) (.nr_class model))))))
 
 (deftest test-write-model
-  (is (= "tmp/heartscale.model"
-         (write-model example-model "tmp/heartscale.model"))))
+  (is (= "/tmp/heartscale.model"
+         (write-model example-model "/tmp/heartscale.model"))))
 
 (deftest test-train-model
   (let [model (train-model example-dataset)]
@@ -117,6 +117,6 @@
 
 (deftest test-write-dataset
   (let [dataset (read-dataset "test-resources/heartscale")
-        filename (write-dataset dataset "tmp/heartscale")]
-    (is (= "tmp/heartscale" filename))
+        filename (write-dataset dataset "/tmp/heartscale")]
+    (is (= "/tmp/heartscale" filename))
     (is (= dataset (read-dataset filename)))))
