@@ -26,6 +26,9 @@
   (is (= (map #(Double/parseDouble %1) (line-seq (reader "/tmp/output")))
          (map #(predict example-model %1) (map last example-dataset)))))
 
+(deftest test-sparse-map
+  (is (= {1 5 3 7} (sparse-map [5 nil 7]))))
+
 (deftest test-make-problem
   (let [problem (make-problem example-dataset)]
     (is (instance? svm_problem problem))))
