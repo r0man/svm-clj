@@ -1,8 +1,9 @@
 (ns svm.core
   (:refer-clojure :exclude (replace))
   (:import [libsvm svm_node svm_parameter svm_problem svm])
-  (:use [clojure.java.io :only (file reader writer)]
-        [clojure.string :only (join replace split)]))
+  (:require [clojure.edn :as edn]
+            [clojure.java.io :refer [file reader writer]]
+            [clojure.string :refer [join replace split]]))
 
 (def kernel-types
   {:linear svm_parameter/LINEAR
@@ -90,7 +91,7 @@
   "Parse a LibSVM formatted text `line`."
   [line]
   (let [[label & data] (split line #"\s+")]
-    [(read-string label)
+    [(edn/read-string label)
      (reduce
       (fn [data [index value]]
         (assoc data
