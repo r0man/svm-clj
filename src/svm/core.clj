@@ -127,7 +127,9 @@
   [dataset filename]
   (let [file (file filename)]
     (.mkdirs (.getParentFile file))
-    (spit file (join "\n" (map format-line dataset)))
+    (with-open [w (writer file)]
+      (doseq [line (map format-line dataset)]
+        (.write w (str line "\n"))))
     (str file)))
 
 (defn write-model
