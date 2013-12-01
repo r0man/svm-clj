@@ -1,4 +1,4 @@
-(ns svm.test.core
+(ns svm.core-test
   (:import [libsvm svm_node svm_model svm_parameter svm_problem])
   (:use [clojure.java.io :only (reader)]
         clojure.java.shell
