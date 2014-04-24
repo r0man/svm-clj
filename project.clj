@@ -9,4 +9,4 @@
   :description "Clojure Library for LibSVM."
   :url "https://github.com/r0man/svm-clj"
   :dependencies [[org.clojure/clojure "1.5.1"]
-                 [tw.edu.ntu.csie/libsvm "3.1"]])
+                 [tw.edu.ntu.csie/libsvm "3.17"]])
