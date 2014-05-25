@@ -1,4 +1,7 @@
-# SVM-CLJ [![Build Status](https://travis-ci.org/r0man/svm-clj.png)](https://travis-ci.org/r0man/svm-clj)
+# SVM-CLJ
+  [![Build Status](https://travis-ci.org/r0man/svm-clj.png)](https://travis-ci.org/r0man/svm-clj)
+  [![Dependencies Status](http://jarkeeper.com/r0man/svm-clj/status.png)](http://jarkeeper.com/r0man/svm-clj)
+  [![Gittip](http://img.shields.io/gittip/r0man.svg)](https://www.gittip.com/r0man)
 
 A LibSVM wrapper for Clojure.
 
@@ -28,6 +31,6 @@ Via Clojars: http://clojars.org/svm-clj.
 
 ## License
 
-Copyright (C) 2011 Roman Scherer
+Copyright (C) 2011-2014 Roman Scherer
 
 Distributed under the Eclipse Public License, the same as Clojure.
