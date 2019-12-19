@@ -1,5 +1,6 @@
 language: clojure
 lein: lein
+
 before_install:
   - git clone https://github.com/cjlin1/libsvm.git
   - cd libsvm
